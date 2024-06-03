@@ -1,19 +1,21 @@
-function Navbar() {
+import { Link } from "react-router-dom";
+
+function NavbarUser() {
   return (
     <div className="navbar bg-base-100 flex text-white">
       <div className="flex-1 justify-start md:ml-8">
-        <a className="btn btn-ghost text-xl">@ GOT TALENTS</a>
+        <Link className="btn btn-ghost text-xl">@ GOT TALENTS</Link>
       </div>
       <div className="hidden md:flex mr-12">
         <ul className="menu menu-horizontal gap-8 text-base px-1">
           <li>
-            <a>Home</a>
+            <Link>Home</Link>
           </li>
           <li>
-            <a>Start</a>
+            <Link>Start</Link>
           </li>
           <li>
-            <a>Result</a>
+            <Link>Result</Link>
           </li>
         </ul>
       </div>
@@ -40,13 +42,13 @@ function Navbar() {
             className="dropdown-content z-[1] menu mt-1 shadow shadow-white bg-base-100 w-52 rounded-sm"
           >
             <li>
-              <a>Home</a>
+              <Link>Home</Link>
             </li>
             <li>
-              <a>Start</a>
+              <Link>Start</Link>
             </li>
             <li>
-              <a>Result</a>
+              <Link>Result</Link>
             </li>
           </ul>
         </div>
@@ -55,4 +57,4 @@ function Navbar() {
   );
 }
 
-export default Navbar;
+export default NavbarUser;
