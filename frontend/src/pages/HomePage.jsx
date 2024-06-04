@@ -1,11 +1,12 @@
-import NavbarUser from "../components/Navbar";
 import Footer from "../components/Footer";
+import LandingPage from "../components/LandingPage";
+import NavbarUser from "../components/NavbarUser";
 
 const HomePage = () => {
   return (
     <>
       <NavbarUser />
-      <HomePage />
+      <LandingPage />
       <Footer />
     </>
   );

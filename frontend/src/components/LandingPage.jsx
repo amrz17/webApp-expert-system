@@ -1,6 +1,6 @@
 import { findTalent } from "../assets";
 
-const HomePage = () => {
+const LandingPage = () => {
   return (
     <div className="bg-gray-50 xl:h-svh flex items-center xl:justify-center flex-col ">
       <div
@@ -43,4 +43,4 @@ const HomePage = () => {
     </div>
   );
 };
-export default HomePage;
+export default LandingPage;

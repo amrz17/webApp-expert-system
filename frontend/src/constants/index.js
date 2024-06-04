@@ -1,5 +1,5 @@
 export const navLinkAdmin = [
-  { to: "/", label: "Dashboard" },
+  { to: "/login", label: "Dashboard" },
   { to: "/", label: "Reports" },
   { to: "/", label: "Knowledge Base" },
   { to: "/", label: "Talents" },
