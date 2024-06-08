@@ -1,14 +1,40 @@
-from flask import Flask, jsonify
-from flask_cors import CORS
+from flask import Flask, jsonify, render_template, request, redirect, url_for
+import mysql.connector
+from mysql.connector import Error
 
 app = Flask(__name__)
-cors = CORS(app, origins="*")
+
+"""Cennection to database MySQL"""
 
 
-@app.route("/api/users", methods=["GET"])
+def get_db_connection():
+    try:
+        connection = mysql.connector.connect(
+            host="localhost", user="root", password="", database="sistempakar"
+        )
+        if connection.is_connected():
+            return connection
+    except Error as e:
+        print("Error while connecting to MySQL", e)
+        return None
+
+
+"""Menampilkan daftar pengguna dari tabel 'users'"""
+
+
+@app.route("/", methods=["GET"])
 def users():
-    return jsonify({"diagnosa": ["Depresi", "PTSD", "OCD"]})
+    connection = get_db_connection()
+    if connection:
+        cursor = connection.cursor(dictionary=True)
+        cursor.execute("SELECT * FROM tbl_m_user")
+        users = cursor.fetchall()
+        cursor.close()
+        connection.close()
+        return jsonify(users)
+    else:
+        return "Failed to connect to database"
 
 
 if __name__ == "__main__":
-    app.run(debug=True, port=8080)
+    app.run(debug=True)
