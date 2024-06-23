@@ -33,7 +33,7 @@ end
 # Unset irrelevant variables.
 deactivate nondestructive
 
-set -gx VIRTUAL_ENV "/home/amrz17/Dev/Expert-System/WebApp-Expert-System/backend/venv"
+set -gx VIRTUAL_ENV "/home/amrz17/Dev/Expert-System/server/venv"
 
 set -gx _OLD_VIRTUAL_PATH $PATH
 set -gx PATH "$VIRTUAL_ENV/bin" $PATH

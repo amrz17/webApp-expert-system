@@ -1,12 +1,12 @@
-import BE from "../components/BE";
 import Footer from "../components/Footer";
 import NavbarUser from "../components/NavbarUser";
+import LandingPage from "../components/LandingPage";
 
 const HomePage = () => {
   return (
     <>
       <NavbarUser />
-      <BE />
+      <LandingPage />
       <Footer />
     </>
   );

@@ -13,7 +13,7 @@ const LandingPage = () => {
         </div>
         <div className="xl:flex 2xl:text-xl flex-col xl:justify-center">
           <h2 className="mt-4 text-center ">
-            <strong className="bg-base-100 text-white p-1">
+            <strong className="bg-gray-800 text-white p-1">
               {" "}
               @ GOT TALENT
             </strong>{" "}
@@ -29,15 +29,6 @@ const LandingPage = () => {
               START TEST
             </button>
           </div>
-          <h2>
-            Mengetahui apa yang kamu suka dan apa yang kamu pandai lakukan
-            sangat penting. Ini bisa membantumu memilih kegiatan dan pekerjaan
-            yang cocok buat mu, menyenangkan dan membuatmu bersemangat. Dengan
-            mengetahui bakat dan minatmu, kamu bisa menjadi lebih baik dalam
-            hal-hal yang kamu lakukan. Ini juga membantumu membuat keputusan
-            yang baik tentang sekolah dan pekerjaan nanti, sehingga kamu merasa
-            bahagia dan tidak menyesal.
-          </h2>
         </div>
       </div>
     </div>

@@ -8,8 +8,8 @@ const NavbarAdmin = () => {
   };
 
   return (
-    <header className="bg-base-100">
-      <div className="flex p-4 gap-10 items-center">
+    <header>
+      <div className="flex bg-base-200 p-4 gap-10 items-center">
         <button onClick={toggleSidebar} className="md:hidden" type="button">
           {openMenu ? (
             <SideBar />

@@ -1,8 +1,9 @@
 import { Link } from "react-router-dom";
+import ThemeToggle from "./ThemeToggle"; // Adjust the path to your file structure
 
 function NavbarUser() {
   return (
-    <div className="navbar bg-base-100 flex text-white">
+    <div className="navbar bg-base-200 flex">
       <div className="flex-1 justify-start md:ml-8">
         <Link className="btn btn-ghost text-xl">@ GOT TALENTS</Link>
       </div>
@@ -19,6 +20,10 @@ function NavbarUser() {
           </li>
         </ul>
       </div>
+      <div className="hidden md:flex mr-12">
+        <ThemeToggle />
+      </div>
+
       <div className="navbar-start justify-end md:hidden">
         <div className="dropdown dropdown-end">
           <div tabIndex="0" role="button" className="btn btn-ghost btn-circle">
@@ -39,7 +44,8 @@ function NavbarUser() {
           </div>
           <ul
             tabIndex="0"
-            className="dropdown-content z-[1] menu mt-1 shadow shadow-white bg-base-100 w-52 rounded-sm"
+            className="dropdown-content z-[1] menu mt-1 shadow shadow-black bg-base-200
+            w-52 rounded-sm"
           >
             <li>
               <Link>Home</Link>
@@ -49,6 +55,9 @@ function NavbarUser() {
             </li>
             <li>
               <Link>Result</Link>
+            </li>
+            <li>
+              <ThemeToggle />
             </li>
           </ul>
         </div>
