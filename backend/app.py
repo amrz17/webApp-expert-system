@@ -1,7 +1,10 @@
 from flask import Flask, jsonify, request
 from flask_marshmallow import Marshmallow
 from flask_cors import CORS
-from models import db, Users, Questions, UserAnswer
+from models import db, Users, Questions, UserAnswer, UserResult
+from neural_network import forward_propagation
+from sqlalchemy import func
+import numpy as np
 
 app = Flask(__name__)
 
@@ -59,7 +62,23 @@ class QuestionsSchema(ma.Schema):
 # Definisi skema pengguna untuk serialisasi dan deserialisasi dengan Marshmallow
 class UsersAnswerSchema(ma.Schema):
     class Meta:
-        fields = ("id_tmua", "id_tmq", "user_answer", "created_at")
+        fields = (
+            "id_tmua",
+            "user_answer_tmua",
+            "created_at",
+        )
+
+
+# Definisi skema pengguna untuk serialisasi dan deserialisasi dengan flask_marshmallow
+class UserResultSchema(ma.Schema):
+    class Meta:
+        fields = (
+            "id_tmur",
+            "id_tmua",
+            "score_tmur",
+            "result_tmur",
+            "created_at",
+        )
 
 
 # USER
@@ -77,6 +96,11 @@ question_schema = QuestionsSchema()
 answers_schema = UsersAnswerSchema(many=True)
 
 answer_schema = UsersAnswerSchema()
+
+# USER RESULT
+user_results_schema = UserResultSchema(many=True)
+
+user_result_schema = UserResultSchema()
 
 
 @app.route("/")
@@ -242,15 +266,67 @@ def answerdetails(id):
 @app.route("/adduseranswer", methods=["POST"])
 def newuseranswer():
     # Mengambil data dari permintaan JSON
-    user_answer = request.json["user_answer"]
+    user_answer = request.json["user_answer_tmua"]
 
     # Membuat instansi question baru
-    answer = UserAnswer(user_answer=user_answer)
+    answer = UserAnswer(user_answer_tmua=user_answer)
 
     # Menambahkan question baru ke database
     db.session.add(answer)
     db.session.commit()
     return answer_schema.jsonify(answer)
+
+
+# USER RESULT
+
+
+# Route untuk mendapatkan daftar semua user result dalam format JSON
+@app.route("/userresult", methods=["GET"])
+def listuserresult():
+    all_userresult = UserResult.query.all()
+    result = user_result_schema.dump(all_userresult)
+    return jsonify(result)
+
+
+# Route untuk mendapatkan user result berdasarkan ID
+@app.route("/resultdetails/<id>", methods=["GET"])
+def resultdetails(id):
+    result = UserResult.query.get(id)
+    return user_result_schema.jsonify(result)
+
+
+# Route untuk mendapatkan user answer ID terakhir
+@app.route("/lastanswerdetails", methods=["GET"])
+def lastanswerdetails():
+    # Query untuk mendapatkan jawaban terakhir berdasarkan timestamp atau ID
+    last_answer = UserAnswer.query.order_by(UserAnswer.id_tmua.desc()).first()
+
+    if not last_answer:
+        return jsonify({"error": "No answer found"}), 404
+
+    return answer_schema.jsonify(last_answer), 200
+
+
+@app.route("/result", methods=["POST"])
+def submit_answer():
+    last_answer = UserAnswer.query.order_by(UserAnswer.id_tmua.desc()).first()
+
+    # Hanya mengambil kolom user_answer_tmua
+    id_tmua = last_answer.id_tmua
+    user_answer_tmua = last_answer.user_answer_tmua
+
+    # Olah data dengan neural network
+    user_answer_np = np.array(user_answer_tmua).reshape(1, -1)
+    _, _, _, prediction = forward_propagation(user_answer_np)
+    score = prediction.tolist()
+    result = int(np.argmax(prediction))
+
+    # Simpan hasil prediksi ke database
+    new_user_result = UserResult(id_tmua=id_tmua, score_tmur=score, result_tmur=result)
+    db.session.add(new_user_result)
+    db.session.commit()
+
+    return user_result_schema.jsonify(new_user_result)
 
 
 if __name__ == "__main__":

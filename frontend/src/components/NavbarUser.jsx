@@ -16,7 +16,7 @@ function NavbarUser() {
             <Link>Start</Link>
           </li>
           <li>
-            <Link>Result</Link>
+            <Link to="/result">Result</Link>
           </li>
         </ul>
       </div>
@@ -54,7 +54,7 @@ function NavbarUser() {
               <Link>Start</Link>
             </li>
             <li>
-              <Link>Result</Link>
+              <Link to="/result">Result</Link>
             </li>
             <li>
               <ThemeToggle />

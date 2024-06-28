@@ -34,7 +34,16 @@ class Questions(db.Model):
 
 
 class UserAnswer(db.Model):
-    __tablename__ = "tbl_m_users_answer"
+    __tablename__ = "tbl_m_user_answer"
     id_tmua = db.Column(db.Integer, primary_key=True)
-    user_answer = db.Column(db.JSON, nullable=False)
+    user_answer_tmua = db.Column(db.JSON, nullable=False)
+    created_at = db.Column(db.DateTime, nullable=True, default=datetime.utcnow)
+
+
+class UserResult(db.Model):
+    __tablename__ = "tbl_m_user_result"
+    id_tmur = db.Column(db.Integer, primary_key=True)
+    id_tmua = db.Column(db.Integer, nullable=False)
+    score_tmur = db.Column(db.JSON, nullable=False)
+    result_tmur = db.Column(db.Integer, nullable=False)
     created_at = db.Column(db.DateTime, nullable=True, default=datetime.utcnow)

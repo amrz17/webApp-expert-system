@@ -1,12 +1,12 @@
 import Footer from "../components/Footer";
 import NavbarUser from "../components/NavbarUser";
-import LandingPage from "../components/LandingPage";
+import Questions from "../components/Questions";
 
 const HomePage = () => {
   return (
     <>
       <NavbarUser />
-      <LandingPage />
+      <Questions />
       <Footer />
     </>
   );

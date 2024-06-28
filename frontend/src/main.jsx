@@ -5,6 +5,7 @@ import "./index.css";
 import HomePage from "./pages/HomePage";
 import LoginAdminPage from "./pages/LoginAdminPage";
 import DashboardPage from "./pages/DashboardPage.jsx";
+import { Result } from "postcss";
 
 const router = createBrowserRouter([
   {
@@ -18,6 +19,10 @@ const router = createBrowserRouter([
   {
     path: "/admin/dashboard",
     element: <DashboardPage />,
+  },
+  {
+    path: "/result",
+    element: <Result />,
   },
 ]);
 

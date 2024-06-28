@@ -20,8 +20,8 @@ const Questions = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const response = await axios.post("http://localhost:5000/adduseranswer", {
-        user_answer: userAnswer,
+      await axios.post("http://localhost:5000/adduseranswer", {
+        user_answer_tmua: userAnswer,
       });
       setMessage("Jawaban berhasil disimpan!");
     } catch (error) {
@@ -43,7 +43,7 @@ const Questions = () => {
   };
 
   return (
-    <div className="container mx-auto p-4">
+    <div className="container mx-auto p-4 xl:w-[70%]">
       <form onSubmit={handleSubmit} className="space-y-4">
         {questions.map((question, index) => (
           <li
@@ -51,11 +51,11 @@ const Questions = () => {
             className="list-none border border-black
             px-6 pt-6 "
           >
-            <div className="flex flex-col gap-4 h-36 items-center">
-              <p className="text-center">
+            <div className="flex flex-col h-[140px] items-center">
+              <p className="text-center mb-[16px]">
                 <span>{question.id_tmq}</span> {question.question_tmq}
               </p>
-              <div className="flex justify-center gap-4">
+              <div className="flex justify-center gap-4 mb-2">
                 <input
                   type="button"
                   value="Tidak Setuju"
@@ -71,7 +71,7 @@ const Questions = () => {
               </div>
               {answeredQuestions[index] !== undefined && (
                 <p className="text-center mt-2">
-                  Kamu memilih:{" "}
+                  Jawaban Anda:{" "}
                   {answeredQuestions[index] === 0 ? "Tidak Setuju" : "Setuju"}
                 </p>
               )}
