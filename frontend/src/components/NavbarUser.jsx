@@ -8,12 +8,12 @@ function NavbarUser() {
         <Link className="btn btn-ghost text-xl">@ GOT TALENTS</Link>
       </div>
       <div className="hidden md:flex mr-12">
-        <ul className="menu menu-horizontal gap-8 text-base px-1">
+        <ul className="menu menu-horizontal gap-2 text-base px-1">
           <li>
-            <Link>Home</Link>
+            <Link to="/">Home</Link>
           </li>
           <li>
-            <Link>Start</Link>
+            <Link to="/start">Start</Link>
           </li>
           <li>
             <Link to="/result">Result</Link>
@@ -48,10 +48,10 @@ function NavbarUser() {
             w-52 rounded-sm"
           >
             <li>
-              <Link>Home</Link>
+              <Link to="/">Home</Link>
             </li>
             <li>
-              <Link>Start</Link>
+              <Link to="/start">Start</Link>
             </li>
             <li>
               <Link to="/result">Result</Link>

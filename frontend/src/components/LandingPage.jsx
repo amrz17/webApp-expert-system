@@ -1,3 +1,4 @@
+import { Link } from "react-router-dom";
 import { findTalent } from "../assets";
 
 const LandingPage = () => {
@@ -11,7 +12,7 @@ const LandingPage = () => {
         <div className="md:flex items-center justify-center ">
           <img src={findTalent} className="rounded-md md:w-[700px]" />
         </div>
-        <div className="xl:flex 2xl:text-xl flex-col xl:justify-center">
+        <div className="xl:flex xl:text-xl 2xl:text-xl flex-col xl:justify-center">
           <h2 className="mt-4 text-center ">
             <strong className="bg-gray-800 text-white p-1">
               {" "}
@@ -22,16 +23,19 @@ const LandingPage = () => {
             berikut.
           </h2>
           <div className="flex justify-center">
-            <button
-              className="btn bg-sky-200 flex justify-center hover:text-white font-bold 
-              btn-block text-black text-base my-3 xl:my-5"
-            >
-              START TEST
-            </button>
+            <Link to="/rules">
+              <button
+                className="btn bg-sky-200 flex justify-center hover:text-white font-bold 
+              btn-wide text-black text-base my-3 xl:my-5"
+              >
+                START TEST
+              </button>
+            </Link>
           </div>
         </div>
       </div>
     </div>
   );
 };
+
 export default LandingPage;

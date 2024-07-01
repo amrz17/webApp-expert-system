@@ -5,7 +5,9 @@ import "./index.css";
 import HomePage from "./pages/HomePage";
 import LoginAdminPage from "./pages/LoginAdminPage";
 import DashboardPage from "./pages/DashboardPage.jsx";
-import { Result } from "postcss";
+import Questions from "./components/Questions.jsx";
+import Result from "./pages/Result.jsx";
+import RuleTes from "./components/RuleTes.jsx";
 
 const router = createBrowserRouter([
   {
@@ -19,6 +21,14 @@ const router = createBrowserRouter([
   {
     path: "/admin/dashboard",
     element: <DashboardPage />,
+  },
+  {
+    path: "/rules",
+    element: <RuleTes />,
+  },
+  {
+    path: "/start",
+    element: <Questions />,
   },
   {
     path: "/result",

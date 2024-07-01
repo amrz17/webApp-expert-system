@@ -1,14 +1,11 @@
-import Footer from "../components/Footer";
-import NavbarUser from "../components/NavbarUser";
-import Questions from "../components/Questions";
+import MainLayoutUser from "../layout/MainLayoutUser";
+import LandingPage from "../components/LandingPage";
 
 const HomePage = () => {
   return (
-    <>
-      <NavbarUser />
-      <Questions />
-      <Footer />
-    </>
+    <MainLayoutUser>
+      <LandingPage />
+    </MainLayoutUser>
   );
 };
 

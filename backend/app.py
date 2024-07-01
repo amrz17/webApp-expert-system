@@ -284,7 +284,7 @@ def newuseranswer():
 @app.route("/userresult", methods=["GET"])
 def listuserresult():
     all_userresult = UserResult.query.all()
-    result = user_result_schema.dump(all_userresult)
+    result = user_results_schema.dump(all_userresult)
     return jsonify(result)
 
 
@@ -295,20 +295,9 @@ def resultdetails(id):
     return user_result_schema.jsonify(result)
 
 
-# Route untuk mendapatkan user answer ID terakhir
-@app.route("/lastanswerdetails", methods=["GET"])
-def lastanswerdetails():
-    # Query untuk mendapatkan jawaban terakhir berdasarkan timestamp atau ID
-    last_answer = UserAnswer.query.order_by(UserAnswer.id_tmua.desc()).first()
-
-    if not last_answer:
-        return jsonify({"error": "No answer found"}), 404
-
-    return answer_schema.jsonify(last_answer), 200
-
-
 @app.route("/result", methods=["POST"])
 def submit_answer():
+    id_tmur = UserAnswer.query.order_by(UserAnswer.id_tmur.desc()).first()
     last_answer = UserAnswer.query.order_by(UserAnswer.id_tmua.desc()).first()
 
     # Hanya mengambil kolom user_answer_tmua
@@ -326,7 +315,28 @@ def submit_answer():
     db.session.add(new_user_result)
     db.session.commit()
 
-    return user_result_schema.jsonify(new_user_result)
+
+# Route untuk mendapatkan user answer ID terakhir
+@app.route("/lastanswerdetails", methods=["GET"])
+def lastanswerdetails():
+    # Query untuk mendapatkan jawaban terakhir berdasarkan timestamp atau ID
+    last_answer = UserResult.query.order_by(UserResult.id_tmur.desc()).first()
+
+    # id_tmur = request.args.get("id_tmur")
+    # id_tmua = request.args.get("id_tmua")
+
+    id_tmur = last_answer.id_tmur
+    id_tmua = last_answer.id_tmua
+
+    if id_tmua != id_tmur:
+        return jsonify(
+            {"error": "ID tidak cocok, tidak diizinkan untuk melakukan metode GET"}
+        ), 403
+
+    if not last_answer:
+        return jsonify({"error": "No answer found"}), 404
+
+    return user_result_schema.jsonify(last_answer), 200
 
 
 if __name__ == "__main__":
