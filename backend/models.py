@@ -22,6 +22,13 @@ class Users(db.Model):
     updated_at = db.Column(db.DateTime, nullable=True, default=datetime.utcnow)
 
 
+class Category(db.Model):
+    __tablename__ = "tbl_m_category"
+    id_tmc = db.Column(db.Integer, primary_key=True)
+    category_name_tmc = db.Column(db.Text, nullable=False)
+    description = db.Column(db.Text, nullable=False)
+
+
 class Questions(db.Model):
     __tablename__ = "tbl_m_question"
     id_tmq = db.Column(db.Integer, primary_key=True)

@@ -1,7 +1,7 @@
 from flask import Flask, jsonify, request
 from flask_marshmallow import Marshmallow
 from flask_cors import CORS
-from models import db, Users, Questions, UserAnswer, UserResult
+from models import db, Users, Category, Questions, UserAnswer, UserResult
 from neural_network import forward_propagation
 from sqlalchemy import func
 import numpy as np
@@ -45,6 +45,12 @@ class UserSchema(ma.Schema):
         )
 
 
+# Definisi skema category untuk serialisasi dan deserialisasi dengan Marshmallow
+class CategorySchema(ma.Schema):
+    class Meta:
+        fields = ("id_tmc", "category_name_tmc", "description")
+
+
 # Definisi skema pengguna untuk serialisasi dan deserialisasi dengan Marshmallow
 class QuestionsSchema(ma.Schema):
     class Meta:
@@ -84,8 +90,13 @@ class UserResultSchema(ma.Schema):
 # USER
 # Inisialisasi skema pengguna untuk serialisasi banyak pengguna
 users_schema = UserSchema(many=True)
-# Add User
+
 user_schema = UserSchema()
+
+# Category
+categorys_schema = CategorySchema(many=True)
+
+category_schema = CategorySchema()
 
 # QUESTIONS
 questions_schema = QuestionsSchema(many=True)
@@ -183,6 +194,14 @@ def userdelete(id):
     db.session.delete(user)
     db.session.commit()
     return user_schema.jsonify(user)
+
+
+# Route untuk mendapatkan daftar semua category dalam format JSON
+@app.route("/category", methods=["GET"])
+def listcategory():
+    all_questions = Category.query.all()
+    result = categorys_schema.dump(all_questions)
+    return jsonify(result)
 
 
 # QUESTIONS
@@ -297,7 +316,7 @@ def resultdetails(id):
 
 @app.route("/result", methods=["POST"])
 def submit_answer():
-    id_tmur = UserAnswer.query.order_by(UserAnswer.id_tmur.desc()).first()
+    # id_tmur = UserAnswer.query.order_by(UserAnswer.id_tmur.desc()).first()
     last_answer = UserAnswer.query.order_by(UserAnswer.id_tmua.desc()).first()
 
     # Hanya mengambil kolom user_answer_tmua
@@ -314,6 +333,7 @@ def submit_answer():
     new_user_result = UserResult(id_tmua=id_tmua, score_tmur=score, result_tmur=result)
     db.session.add(new_user_result)
     db.session.commit()
+    return user_result_schema.jsonify(new_user_result), 200
 
 
 # Route untuk mendapatkan user answer ID terakhir
