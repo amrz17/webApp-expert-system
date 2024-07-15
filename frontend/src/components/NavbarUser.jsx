@@ -5,7 +5,9 @@ function NavbarUser() {
   return (
     <div className="navbar bg-base-200 flex">
       <div className="flex-1 justify-start md:ml-8">
-        <Link className="btn btn-ghost text-xl">@ GOT TALENTS</Link>
+        <Link to="/" className="btn btn-ghost text-xl">
+          @ GOT TALENTS
+        </Link>
       </div>
       <div className="hidden md:flex mr-12">
         <ThemeToggle />

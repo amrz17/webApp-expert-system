@@ -6,7 +6,7 @@ import { Link } from "react-router-dom";
 const Questions = () => {
   const [questions, setQuestions] = useState([]);
   const [userAnswer, setUserAnswer] = useState(Array(60).fill(0));
-  const [result, setResult] = useState(Array(60));
+  const [result, setResult] = useState([]);
   const [message, setMessage] = useState("");
   const [answeredQuestions, setAnsweredQuestions] = useState({}); // State to track answered questions
 
@@ -44,13 +44,13 @@ const Questions = () => {
     }));
   };
 
-  const handleResult = async (e) => {
-    e.preventDefault();
+  const handleResult = async () => {
     try {
       await axios.post("http://localhost:5000/result", {
         id_tmua: result,
       });
       setMessage("Jawaban berhasil disimpan!");
+      setResult([]); // Reset result setelah berhasil disimpan
     } catch (error) {
       console.error("Error submitting answer:", error);
       setMessage("Gagal menyimpan jawaban!");
