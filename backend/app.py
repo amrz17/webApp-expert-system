@@ -9,7 +9,8 @@ import numpy as np
 app = Flask(__name__)
 
 # Konfigurasi koneksi database MySQL
-app.config["SQLALCHEMY_DATABASE_URI"] = "mysql+pymysql://root:@localhost/sistempakar"
+app.config["SQLALCHEMY_DATABASE_URI"] = "mysql+pymysql://root:admin123@localhost/sistem_pakar"
+
 app.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = False
 app.config["SQLALCHEMY_ECHO"] = True
 
@@ -284,8 +285,11 @@ def answerdetails(id):
 # Route untuk menambahkan user answer baru ke database
 @app.route("/adduseranswer", methods=["POST"])
 def newuseranswer():
+    data = request.json
     # Mengambil data dari permintaan JSON
+    print("Request JSON:", data)  # Debugging log
     user_answer = request.json["user_answer_tmua"]
+    print("Request JSON:", user_answer  )  # Debugging log
 
     # Membuat instansi question baru
     answer = UserAnswer(user_answer_tmua=user_answer)
